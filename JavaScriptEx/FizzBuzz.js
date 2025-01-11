@@ -8,29 +8,29 @@
     let output = [];
     let counter = 0;
     
-    function fizzBuzz() {
+    function fizzBuzz(length) {
         counter++;
         
-        if((counter % 3 === 0) && (counter % 5 === 0)) {
-            output.push("FizzBuzz");
+        while(counter < length) {
+            if((counter % 3 === 0) && (counter % 5 === 0)) {
+                output.push("FizzBuzz");
+            }
+            else if(counter % 3 === 0 ) {
+                output.push("Fizz");
+            }
+            else if(counter % 5 === 0) {
+                output.push("Buzz");
+            }  else {
+                output.push(counter);
+            }
         }
-        else if(counter % 3 === 0 ) {
-            output.push("Fizz");
         }
-        else if(counter % 5 === 0) {
-            output.push("Buzz");
-        }  else {
-            output.push(counter);
-        }
-    }
 
     //main code:
 
     let length= prompt("Enter no. for FizzBuzz series: ")
 
-    for(let i = 0; i<length; i++) {
-        fizzBuzz();
-    }
+    fizzBuzz(length);
 
     //Print result array:
     console.log(output);
