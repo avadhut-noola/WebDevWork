@@ -45,8 +45,8 @@ app.put("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const updatedJoke = {
     id: id,
-    jokeText: req.params.text,
-    jokeType: req.params.type,
+    jokeText: req.body.text,
+    jokeType: req.body.type,
   };
 
   const searchIndex = jokes.findIndex((joke) => joke.id === id);
