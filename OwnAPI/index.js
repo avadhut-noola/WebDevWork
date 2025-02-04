@@ -3,7 +3,10 @@ import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
-const masterKey = "4VGP2DN-6EWM4SJ-N6FGRHV-Z3PR3TT";
+
+//This key can solely be defined by developer as this is an open-source API
+//Test this Auth by sending requests to API through postman
+const masterKey = "";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -71,8 +74,35 @@ app.patch("/jokes/:id", (req, res) => {
 });
 
 //7. DELETE Specific joke
+app.delete("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const searchIndex = jokes.findIndex((joke) => joke.id === id);
+
+  if(searchIndex > -1) {
+    jokes.splice(searchIndex, 1);
+    res.sendStatus(200);
+  } else {
+    res
+    .status(404)
+    .json({error: `Joke with id: ${id} not found. No jokes were deleted.` })
+  }
+});
 
 //8. DELETE All jokes
+//Required Auth: API KEY which is defined at the initializing of this index.js
+app.delete("/all", (req, res) => {
+
+  const userKey = req.query.key;
+  if(userKey === masterKey) {
+    jokes = [];
+    res.sendStatus(200);
+  } else {
+    res
+      .status(401)
+        .json({error: `Unable to delete, You are Unauthorized. `})
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
