@@ -1,4 +1,4 @@
-// Read API documentation: https://documenter.getpostman.com/view/41317341/2sAYX5MiEY
+// Read postman documentation: https://documenter.getpostman.com/view/41317341/2sAYX5MiEY
 import express from "express";
 import bodyParser from "body-parser";
 
