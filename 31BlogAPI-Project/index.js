@@ -48,7 +48,7 @@ app.get("/posts", (req, res) => {
 app.get("/posts/:id", (req, res) => {
   const post = posts.find((p) => p.id === parseInt(req.params.id));
   if (!post) return res.status(404).json({ message: "Post not found" });
-  res.json(posts(post));
+  res.json(post);
 });
 
 //POST a new post
@@ -62,7 +62,7 @@ app.post("/posts", (req, res) => {
     content: req.body.content,
     author: req.body.author,
     date: new Date()
-  }; 
+  };
 
   lastId = newID;
   posts.push(post);
@@ -70,7 +70,18 @@ app.post("/posts", (req, res) => {
 });
 
 //PATCH a post when you just want to update one parameter
+app.patch("/posts/:id", (req, res) => {
 
+  const post = posts.find((p) => p.id === parseInt(req.params.id));
+  if (!post) return res.status(404).json({ message: "Post not found" });
+
+
+  if (req.body.title) post.title = req.body.title;
+  if (req.body.content) post.content = req.body.content;
+  if (req.body.author) post.author = req.body.author;
+
+  res.json(post);
+});
 
 //DELETE a specific post by providing the post id.
 
