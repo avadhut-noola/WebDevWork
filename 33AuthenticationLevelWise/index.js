@@ -64,18 +64,26 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const email= req.body.username;
-  const password= req.body.password;
-
+  const loginPassword= req.body.password;
   try {
     const result = await db.query("SELECT username, password FROM users WHERE username = $1", [email])
+    const storedHashedPassword = result.rows[0].password;
 
     if(result.rows.length > 0) {
 
-      if(password === result.rows[0].password) {
-        res.render("secrets.ejs");
-      } else {
-        res.send("Incorrect Password");
-      }
+      //comparing user entered password with stored hashed password
+      bcrypt.compare(loginPassword, storedHashedPassword, async (err, result) => {
+        if(err) {
+          console.log("Error comparing hashed password: ", err);
+        } else {
+          // if result is true then allow the access
+          if(result) {
+            res.render("secrets.ejs");
+          } else {
+            res.send("Incorrect Password");
+          }
+        }
+      });
     } else {
       res.send("The email address is not registered, register yourself");
     }
