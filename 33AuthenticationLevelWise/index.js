@@ -67,10 +67,10 @@ app.post("/login", async (req, res) => {
   const loginPassword= req.body.password;
   try {
     const result = await db.query("SELECT username, password FROM users WHERE username = $1", [email])
-    const storedHashedPassword = result.rows[0].password;
 
     if(result.rows.length > 0) {
 
+      const storedHashedPassword = result.rows[0].password;
       //comparing user entered password with stored hashed password
       bcrypt.compare(loginPassword, storedHashedPassword, async (err, result) => {
         if(err) {
@@ -85,7 +85,12 @@ app.post("/login", async (req, res) => {
         }
       });
     } else {
-      res.send("The email address is not registered, register yourself");
+      res.send(`
+        <script>
+            alert("The email address is not registered. Please sign up.");
+            window.location.href = "/login";
+        </script>
+    `);
     }
 
   } catch(err) {
