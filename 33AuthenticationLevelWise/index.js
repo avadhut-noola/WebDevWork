@@ -1,9 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import bcrypt from "bcrypt";
 
 const app = express();
 const port = 3000;
+const saltRounds = 15; // for salting the hashed password
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -39,9 +41,22 @@ app.post("/register", async (req, res) => {
     if(checkUser.rows.length > 0) {
       res.send("The email address provided is already in use, Try logging in.");
     } else {
-        await db.query("INSERT INTO users (username, password) VALUES ($1, $2)", [email, password]);
-        res.render("secrets.ejs");
-      }
+      //Before storing the data onto database perform hashing
+      // password will be hashed through bcrypt module
+
+      bcrypt.hash(password, saltRounds, async (err, hash) => {
+        if (err) {
+          console.log("Error while hashing password: ", err);
+        } else {
+          // instead of password now we'll pass the generated hash.
+          const result = await db.query(
+            "INSERT INTO users (username, password) VALUES ($1, $2)",
+            [email, hash]
+          );
+          res.render("secrets.ejs");
+        }
+      });
+    }
   } catch(err) {
     console.log(err);
   }
