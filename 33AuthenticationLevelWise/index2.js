@@ -58,6 +58,40 @@ app.get("/secrets", (req, res) => {
 app.post("/register", async (req, res) => {
     const email= req.body.username;
     const password= req.body.password;
+
+    try {
+        const checkUser = await db.query("SELECT username FROM users WHERE username = $1", [email])
+
+        if(checkUser.rows.length > 0) {
+            res.send("The email address provided is already in use, Try logging in.");
+        } else {
+          //Before storing the data onto database perform hashing
+          // password will be hashed through bcrypt module
+
+            bcrypt.hash(password, saltRounds, async (err, hash) => {
+            if (err) {
+                console.log("Error while hashing password: ", err);
+            } else {
+              // instead of password now we'll pass the generated hash.
+              // here RETURNING query means the inserted data will be returned as result.
+                const result = await db.query(
+                "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
+                [email, hash]
+                );
+                //after registration
+                const user = result.rows[0];
+
+                //now instead of rendering whole EJS we'll just redirect to route directly.
+                req.login(user, (err) => {
+                    console.log("success");
+                    res.redirect("/secrets");
+                });
+            }
+            });
+        }
+        } catch(err) {
+        console.log(err);
+        }
 });
 
 app.post(
