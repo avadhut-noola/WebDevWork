@@ -5,16 +5,18 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
+import env from "dotenv";
 
 const app = express();
 const port = 3000;
 const saltRounds = 15; // for salting the hashed password
+env.config(); //Make sure initialize add this every time
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(
     session({
-        secret: "New$eret#369",
+        secret: process.env.SESSION_SECRET, // Here's how you use the env variables
         resave: false,
         saveUninitialized: true,
     })
