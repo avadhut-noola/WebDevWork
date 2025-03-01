@@ -49,15 +49,55 @@ app.get("/register", (req, res) => {
     res.render("register.ejs");
 });
 
+
 //To check the the authentication separate route to secrets.
-app.get("/secrets", (req, res) => {
+app.get("/secrets", async(req, res) => {
     console.log("User:", req.user); // Check if user exists in the session
     console.log("Authenticated:", req.isAuthenticated()); // Check session status
     
     if (req.isAuthenticated()) {
-        res.render("secrets.ejs");
+        try{
+            // Retrieve user's secret:
+            const result = await db.query (
+                `SELECT secret FROM users WHERE username = $1`,
+                [req.user.username]
+            );
+            const secret = result.rows[0].secret;
+
+            if(secret) {
+                res.render("secrets.ejs",{ secret: secret });
+            } else {
+                res.render("secrets.ejs",{ secret: "Jack Bauer is my hero." });
+            }
+        } catch(err) {
+            console.log(err);
+        }
     } else {
         res.redirect("/login");
+    }
+});
+
+// ------------ SUBMIT NEW SECRET -GET ROUTE
+app.get("/submit", function (req, res) {
+    if (req.isAuthenticated()) {
+        res.render("submit.ejs");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+// ------------ SUBMIT NEW SECRET -POST METHOD
+app.post("/submit", async (req, res) => {
+    const submittedSecret = req.body.secret;
+    try {
+        await db.query(
+            "UPDATE users SET secret = $1 WHERE username = $2", [
+                submittedSecret,
+                req.user.username,
+        ]);
+        res.redirect("/secrets");
+    } catch(err) {
+        console.log(err);
     }
 });
 
