@@ -3,12 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import React from "react";
+import List from "./list";
 
 function App() {
   const [count, setCount] = useState(0)
   const name = "Avadhut";
   
-  const date = new Date();
   const hours = new Date(2019, 1, 1, 10).getHours();
 
   let greeting = "";
@@ -32,11 +32,11 @@ function App() {
         {/* This is how you use the variables with HTML tags with {varname  } */}
         <h1>Hello {name} </h1>
         <h1 class= "heading" style={customStyle}> {greeting} </h1>
-        <ul>
-          <li>Development is easy</li>
-          <li>With React Integration</li>
-          <li>It increases the overall pace of development</li>
-        </ul>
+
+        {/* Components can be separated to make the code visually-clean
+            Here List is created in a separate file list.jsx; imported at the top*/}
+        <List />
+
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
