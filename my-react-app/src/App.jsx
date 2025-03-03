@@ -7,11 +7,31 @@ import React from "react";
 function App() {
   const [count, setCount] = useState(0)
   const name = "Avadhut";
+  
+  const date = new Date();
+  const hours = new Date(2019, 1, 1, 10).getHours();
+
+  let greeting = "";
+  const customStyle = {
+    color: "red",
+  };
+
+  if(hours < 12) {
+    greeting = "Good Morning!";
+    customStyle.color = "Aquamarine";
+  } else if (hours > 12 && hours < 18) {
+    greeting = "Good Afternoon!";
+    customStyle.color = "DarkOrange";
+  } else {
+    greeting = "Good Night!";
+    customStyle.color = "powderblue";
+  }
   return (
     <>
       <div>
         {/* This is how you use the variables with HTML tags with {varname  } */}
         <h1>Hello {name} </h1>
+        <h1 class= "heading" style={customStyle}> {greeting} </h1>
         <ul>
           <li>Development is easy</li>
           <li>With React Integration</li>
