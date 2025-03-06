@@ -1,7 +1,6 @@
 import './App.css'
 import Card from './Card'
-import Avatar from "./Avatar";
-import contacts from './contacts'
+ import contacts from './contacts'
 
 function App() {
   return (
