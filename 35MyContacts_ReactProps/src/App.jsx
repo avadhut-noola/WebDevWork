@@ -3,6 +3,17 @@ import Avatar from './Avatar'
 import Card from './Card'
  import contacts from './contacts'
 
+// Creating a function to work on mapped data
+function createCard(contact) {
+  return ( <Card
+    key = {contact.id}
+    name = {contact.name}
+    imgURL = {contact.imgURL}
+    tel = {contact.tel}
+    email = {contact.email}
+  /> );
+}
+
 function App() {
   return (
     <>
@@ -13,26 +24,9 @@ function App() {
           imgURL={"https://avatars.githubusercontent.com/u/110377567?v=4"} 
         />
 
-        <Card
-          name = {contacts[0].name}
-          imgURL = {contacts[0].imgURL}
-          tel = {contacts[0].tel}
-          email = {contacts[0].email}
-        />
+        {/* Data mapping through map function */}
+        {contacts.map(createCard)}
 
-        <Card
-          name = {contacts[1].name}
-          imgURL = {contacts[1].imgURL}
-          tel = {contacts[1].tel}
-          email = {contacts[1].email}
-        />
-
-        <Card
-          name = {contacts[2].name}
-          imgURL = {contacts[2].imgURL}
-          tel = {contacts[2].tel}
-          email = {contacts[2].email}
-        />
       </div>
     </>
   )
