@@ -1,6 +1,6 @@
 import './App.css'
-import Entry from './Entry'
-import emojipedia from './emojipedia'
+import Entry from './Components/Entry'
+import emojipedia from './Components/emojipedia'
 
 function emojiCreator(emojiTerm) {
   return ( <Entry
