@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <h1>
-        <span> Emojipedia </span>
+        <span> EmojiMeans </span>
       </h1>
 
       <dl className="dictionary">
