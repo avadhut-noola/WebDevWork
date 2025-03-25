@@ -1,7 +1,7 @@
 ﻿# React `useState` and `useEffect` Hooks
 
 Better understand the `useState` and `useEffect` hooks in React.  
- These notes are designed to explain both the conceptual and practical usage of these hooks.
+ These notes are designed to explain both the conceptual and practical usage of these hooks.  
  Update: React version 19 has good documentation on hooks; you can read it here: [Built-in React Hooks](https://react.dev/reference/react/hooks) 
 
 ---
