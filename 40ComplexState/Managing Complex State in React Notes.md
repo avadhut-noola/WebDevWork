@@ -3,7 +3,7 @@ When working with React applications, state management often evolves from simple
 Here's what you need to know about managing complex state:
     
 **Key Principles**
-- Single Source of Truth: Combine related state into objects rather than using multiple useState hooks
+- Single Source of Truth: Store related state in a single object to ensure consistency and avoid synchronization issues.
 - Immutability: Always update state immutably to prevent side effects and ensure proper re-rendering
 - Computed Properties: Derive values from the state rather than storing them separately
 - Structured Updates: Use functional updates when the new state depends on the previous state
@@ -83,12 +83,10 @@ export default App;
   The spread operator (...prevValue) copies all existing properties. Only the changed property gets updated. This ensures we don't accidentally lose other state properties
 
 - Dynamic Property Access:  
-  Using [name]: value allows us to update the correct property dynamically.  
-  The square bracket notation accesses the property name stored in the name variable  
+  The `[name]: value` syntax is a JavaScript computed property name, which dynamically assigns a property key based on the `name` variable (e.g., if `name = "fName"`, it becomes `fName: value`). 
 
 - Functional Updates:  
-  Using (prevValue) => {...} ensures we always work with the latest state  
-  Important when state updates might be batched  
+  Functional updates (`(prev) => newState`) guarantee you’re working with the latest state, which is critical when multiple updates could be batched together. 
 
 - Controlled Components:
   Each input is controlled by React state (value={contact.field})  
@@ -117,9 +115,10 @@ function handleFNameChange(e) {
 - Easier to extend with additional fields
 - More maintainable when fields need to be processed together
 
-# Best Practices**
+# Best Practices
 - Keep state structure flat when possible (avoid deep nesting)
-- Normalizing data when dealing with collections
+- Normalizing data when dealing with collections:
+  Flatten nested structures (e.g., store related entities in a lookup table with IDs) to simplify updates and avoid duplication.
 - Use Immer if immutable updates become too verbose
 - Consider context or state management libraries when state needs to be shared across many components
 
@@ -127,4 +126,4 @@ function handleFNameChange(e) {
   The object state pattern shown in the contact form example is ideal for most forms and related data scenarios in React applications.  
   It provides a clean, maintainable way to handle complex state while keeping your component logic organized.
 
-**Read [Detailed React Official Documentation](https://react.dev/learn/managing-state)**
+**Read the [Detailed React Official Documentation](https://react.dev/learn/managing-state)**
