@@ -13,28 +13,17 @@ function App() {
     // Instead use it like this outside of setState.
     const { value, name } = event.target;
 
+    //Using spread operator to reduce the line of code
+    // While managing the complex states
     setContact((prevValue) => {
-      if (name === "fName") {
-        return {
-          fName: value,
-          lName: prevValue.lName,
-          email: prevValue.email,
-        };
-      } else if (name === "lName") {
-        return {
-          fName: prevValue.fName,
-          lName: value,
-          email: prevValue.email,
-        };
-      } else if (name === "email") {
-        return {
-          fName: prevValue.fName,
-          lName: prevValue.lName,
-          email: value,
-        };
-      }
+      return {
+        ...prevValue,
+        [name]: value,
+      };
     });
   }
+  //Above [name] is used in array syntax because we're accessing the property of input element not an string
+  // Read more about it here: https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable?noredirect=1&lq=1
 
   return (
     <div className="container">
