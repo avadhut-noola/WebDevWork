@@ -1,16 +1,14 @@
 # JavaScript Spread Operator
-
-    The spread operator (...) is an ES6 feature that allows you to expand iterables (arrays, objects) into individual elements.
-    It provides a concise way to copy, merge, and manipulate collections.
+The spread operator (...) is an ES6 feature that allows you to expand iterables (arrays, objects) into individual elements.  
+It provides a concise way to copy, merge, and manipulate collections.
 
 # Array Operations with Spread
 
 Array Spreading
-
-    ```
-    const fastestCars = ["Bugatti Veyron", "Devel Sixteen", "Hennessey Venom F5", "McLaren Speedtail"];
-    const cars = ["Maybach Landaulet", "Pagani Zonda C12 F", "Lamborghini Reventon", ...fastestCars];
-    ```
+```
+const fastestCars = ["Bugatti Veyron", "Devel Sixteen", "Hennessey Venom F5", "McLaren Speedtail"];
+const cars = ["Maybach Landaulet", "Pagani Zonda C12 F", "Lamborghini Reventon", ...fastestCars];
+```
 
 **Key Points:**
 
@@ -26,8 +24,7 @@ Array Spreading
 - Converting iterables to arrays (e.g., NodeList to Array)
 
 # Object Operations with Spread
-
-    ```
+```
     const fullName = {
     firstName: "Avadhut",
     lastName: "Noola"
@@ -38,8 +35,7 @@ Array Spreading
     id: 1,
     email: "avadhutnoola@gmail.com"
     };
-
-    ```
+```
 
 # Important Behaviors
 
@@ -61,8 +57,7 @@ Array Spreading
 
 **Computed Property Names**  
     When dynamically setting object keys:  
-    "Square brackets ([]) in object literals create dynamic keys, while spread operators expand properties."
-
+    Square brackets ([]) in object literals create dynamic keys, while spread operators expand properties.
 ```
     const key = 'dynamicProp';
     const obj = {
@@ -100,8 +95,7 @@ user.name = "New Name"; // ❌ Never do this!
 - Order Matters: Later spreads overwrite earlier ones
 - Deep Copies: Spread doesn't handle nested structures deeply
 
-2. **Shallow vs Deep Copy Comparison**  
-### Shallow vs Deep Copies
+# Shallow vs Deep Copies
 ```javascript
 // Shallow copy (spread operator)
 const original = { a: 1, nested: { b: 2 } };
