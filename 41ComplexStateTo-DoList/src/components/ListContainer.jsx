@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TaskItem from "./TaskItem";
 
 function ListContainer() {
 
@@ -38,9 +39,9 @@ function ListContainer() {
             <div>
                 <ul>
                     {
-                        list.map((task) => {
-                            return <li>{task}</li>
-                        })
+                        list.map( task => (
+                            <TaskItem text={task}/>
+                        ))
                     }
                 </ul>
             </div>
