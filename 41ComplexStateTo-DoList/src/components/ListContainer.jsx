@@ -13,11 +13,22 @@ function ListContainer() {
     }
 
     function addTask() {
-        setList( (prevTasks) => {
+        setList((prevTasks) => {
             // Using spread and adding current task here:
             return [...prevTasks, inputText];
         });
         setInputText(""); //Clear input field after adding a task
+    }
+
+    //id is argument of the task going to be deleted.
+    function deleteTask(id) {
+        setList( prevTasks => {
+            return prevTasks.filter( 
+            (task, index) => {
+                // Return all elements in array expect the id passed over
+                return index !== id;
+            });
+        })
     }
 
     return (
@@ -39,8 +50,16 @@ function ListContainer() {
             <div>
                 <ul>
                     {
-                        list.map( task => (
-                            <TaskItem text={task}/>
+                        // Here for the project purpose I have used index directly, 
+                        // Never use index instead, 
+                        // use npm packages like UUID for unique ID generation
+                        list.map((task, index) => (
+                            <TaskItem
+                                key={index}
+                                id={index}
+                                text={task}
+                                onChecked={deleteTask}
+                            />
                         ))
                     }
                 </ul>
